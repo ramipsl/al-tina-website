@@ -1,26 +1,168 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ==========================================================================
+   Al-Tina — design tokens
+   Every colour, rule weight and rhythm value used by the site is declared
+   here. Change a value once and it propagates through every component.
+   ========================================================================== */
+
+@theme {
+  /* --- Brand palette ---------------------------------------------------- */
+  --color-forest: #163f32; /* deep forest green — primary */
+  --color-forest-deep: #0f2c23; /* deepest surface, confidentiality band */
+  --color-forest-soft: #1d4c3d; /* hover / raised state on dark */
+  --color-ivory: #f5f1e8; /* warm ivory — primary light surface */
+  --color-white-warm: #faf8f3; /* near white — alternating light surface */
+  --color-gold: #c89a5b; /* muted gold — rules and accents only on light */
+  --color-gold-deep: #895d21; /* gold that is legible as text on light (5.1:1 ivory, 4.55:1 sage) */
+  --color-charcoal: #252a28; /* body copy on light surfaces */
+  --color-muted: #3f4c47; /* secondary copy on light surfaces (8.0:1) */
+  --color-sage: #aab8ae; /* soft sage — secondary copy on dark (5.7:1) */
+  --color-sage-tint: #e2e6df; /* sage wash for quiet panels */
+
+  /* --- Hairlines -------------------------------------------------------- */
+  --color-rule: #d8d2c4; /* default hairline on light */
+  --color-rule-strong: #c3bba8; /* emphasised hairline on light */
+  --color-rule-dark: #2c5748; /* hairline on forest surfaces */
+
+  /* --- Typography ------------------------------------------------------- */
+  --text-display: clamp(2.6rem, 1.4rem + 4.2vw, 5.1rem);
+  --text-display--line-height: 1.04;
+  --text-display--letter-spacing: -0.025em;
+
+  --text-h2: clamp(2rem, 1.35rem + 2.3vw, 3.35rem);
+  --text-h2--line-height: 1.1;
+  --text-h2--letter-spacing: -0.02em;
+
+  --text-h3: clamp(1.35rem, 1.15rem + 0.75vw, 1.85rem);
+  --text-h3--line-height: 1.2;
+  --text-h3--letter-spacing: -0.015em;
+
+  --text-lead: clamp(1.075rem, 1rem + 0.4vw, 1.3rem);
+  --text-lead--line-height: 1.6;
+
+  --text-label: 0.6875rem;
+  --text-label--line-height: 1;
+  --text-label--letter-spacing: 0.18em;
+
+  /* --- Rhythm ----------------------------------------------------------- */
+  --spacing-section: clamp(3.5rem, 2.25rem + 4.5vw, 6.5rem);
+  --spacing-gutter: clamp(1.25rem, 0.5rem + 2.5vw, 4rem);
+
+  /* --- Motion ----------------------------------------------------------- */
+  --ease-out-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
+/* next/font families are declared outside @theme, so they are mapped inline. */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-newsreader);
+  --font-sans: var(--font-manrope);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Clears the fixed header (5rem tall) with room to spare when jumping to an anchor. */
+    scroll-padding-top: 6.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-white-warm);
+    color: var(--color-charcoal);
+    font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Guards against any single element forcing sideways scroll. */
+  body {
+    overflow-x: clip;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-serif), ui-serif, Georgia, serif;
+    font-weight: 400;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* A single, consistent focus treatment across light and dark sections. */
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+
+  ::selection {
+    background-color: var(--color-forest);
+    color: var(--color-ivory);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ==========================================================================
+   Reveal-on-scroll
+   Elements opt in with data-reveal. The IntersectionObserver in
+   <Reveal> flips data-revealed, which drives the transition. Without
+   JavaScript, or with reduced motion, content is simply visible.
+   ========================================================================== */
+
+@layer components {
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity 0.7s var(--ease-out-soft),
+      transform 0.7s var(--ease-out-soft);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  [data-reveal][data-revealed="true"] {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Hairlines that draw themselves in from the leading edge. */
+  [data-reveal-rule] {
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.9s var(--ease-out-soft);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  [data-reveal-rule][data-revealed="true"] {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  [data-reveal],
+  [data-reveal-rule] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
