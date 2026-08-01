@@ -121,8 +121,6 @@ export const hero = {
   label: "Alberta healthcare operations advisory",
   headline: "Stronger systems for healthcare practices that are ready to grow.",
   body: "Al-Tina helps healthcare business owners — pharmacies, physicians, and clinics alike — bring structure to daily operations, reduce avoidable friction, and build workflows that support confident, sustainable growth.",
-  primaryCta: "Call Sam directly",
-  secondaryCta: "See how Al-Tina helps",
   credibility: ["Founder-led", "Alberta-based", "Confidential by design"],
 } as const;
 
@@ -347,8 +345,8 @@ export const whyAlTina = {
       body: "Processes are designed around your practice, your staffing and the tools you already use.",
     },
     {
-      title: "Confidential and discreet engagements",
-      body: "Client relationships and internal operations are treated with professional discretion.",
+      title: "Built for regulated healthcare environments",
+      body: "Recommendations are shaped around the realities of pharmacies, clinics, documentation, workflows, and healthcare quality expectations.",
     },
     {
       title: "Practical implementation, not generic reports",
