@@ -7,7 +7,17 @@ import {
   SectionHeading,
   SectionLabel,
 } from "@/components/ui/Primitives";
+import { panel } from "@/components/ui/Panel";
+import { cn } from "@/lib/cn";
 import { delay } from "@/lib/motion";
+
+/*
+ * `blur: false` — these sit on the section's flat white surface, not over
+ * any real visual content, so a backdrop blur would be a no-op that still
+ * forces a compositing layer. `quiet` keeps them subtle: the editorial row
+ * around them is still the main event.
+ */
+const FACET_PANEL = panel({ variant: "quiet", blur: false });
 
 export function Services() {
   return (
@@ -65,20 +75,14 @@ function ServiceRow({ service }: { service: Service }) {
           {service.summary}
         </p>
 
-        <dl className="mt-10 grid gap-8 sm:grid-cols-3 sm:gap-0">
+        <dl className="mt-10 grid gap-4 sm:grid-cols-3">
           <Facet label="The problem" value={service.problem} delayMs={120} />
           <Facet
             label="What we improve"
             value={service.work}
             delayMs={180}
-            bordered
           />
-          <Facet
-            label="The outcome"
-            value={service.outcome}
-            delayMs={240}
-            bordered
-          />
+          <Facet label="The outcome" value={service.outcome} delayMs={240} />
         </dl>
       </div>
     </article>
@@ -89,18 +93,16 @@ function Facet({
   label,
   value,
   delayMs,
-  bordered = false,
 }: {
   label: string;
   value: string;
   delayMs: number;
-  bordered?: boolean;
 }) {
   return (
     <div
       data-reveal=""
       style={delay(delayMs)}
-      className={bordered ? "sm:border-l sm:border-rule sm:pl-6" : "sm:pr-6"}
+      className={cn("rounded-xl p-5", FACET_PANEL)}
     >
       <dt className="text-label font-medium text-gold-deep uppercase">
         {label}
