@@ -9,16 +9,14 @@ import { Logo } from "@/components/ui/Logo";
 import { cn } from "@/lib/cn";
 
 /**
- * Frosted-glass squircle treatment shared by the brand mark, the nav
- * container and the mobile menu trigger. Kept at high opacity (85%) so text
- * stays reliably legible no matter what scrolls beneath it — light, sage or
- * forest — rather than relying on a scroll-triggered solid/transparent swap
- * like before. Radius is set per call site, not here, since the mobile
- * trigger is square and needs a smaller radius to read as a squircle rather
- * than a circle.
+ * Clear liquid-glass squircle treatment shared by the brand mark, the nav
+ * container and the mobile menu trigger. Uses moderate opacity so the glass
+ * blurs what's beneath it while remaining readable over the hero video.
+ * Radius is set per call site, not here, since the mobile trigger is square
+ * and needs a smaller radius to read as a squircle rather than a circle.
  */
 const GLASS =
-  "border border-rule/60 bg-ivory/85 shadow-[0_10px_28px_-16px_rgba(22,63,50,0.28)] backdrop-blur-md";
+  "border border-rule/70 bg-ivory/50 shadow-[0_10px_28px_-16px_rgba(22,63,50,0.28)] backdrop-blur-2xl backdrop-saturate-150";
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);

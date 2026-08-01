@@ -410,12 +410,26 @@ export const whoWeServe = {
 
 export const confidentiality = {
   label: "Confidentiality",
-  headline: "Professional discretion is part of every engagement.",
-  body: [
-    "Al-Tina understands that healthcare operations, business performance and internal systems are sensitive. Engagements are handled with discretion from the first conversation.",
-    "Client identities, internal operations and engagement details are treated confidentially. Al-Tina does not publish client names, logos or identifiable case studies, and does not discuss one client's operations with another.",
-    "If you would like specific confidentiality terms in writing before we begin, that can be arranged as part of the engagement.",
+  headline: "Confidentiality and protection of health information.",
+  intro:
+    "Privacy and responsible information handling are built into every engagement Al-Tina undertakes. The same governance and risk-reduction awareness applies across healthcare operations, patient-related information, clinical workflows, documentation, and the business systems that support them.",
+  regulations: ["HIA", "PIPA", "HIPAA where relevant"],
+  pillars: [
+    {
+      title: "Privacy and regulatory awareness",
+      body: "Every engagement is approached with an understanding of applicable privacy legislation and professional obligations.",
+    },
+    {
+      title: "Controlled information handling",
+      body: "Records and engagement materials are shared only with those directly involved in the work.",
+    },
+    {
+      title: "Clinical governance and quality systems",
+      body: "Recommendations reflect the governance and quality standards expected in regulated healthcare environments.",
+    },
   ],
+  closingNote:
+    "Formal confidentiality agreements or data protection agreements can be established before work begins, where required.",
 } as const;
 
 /* -------------------------------------------------------------------------

@@ -16,7 +16,7 @@ export function Confidentiality() {
             <h2
               data-reveal=""
               style={delay(80)}
-              className="mt-8 text-h2 max-w-[18ch] text-ivory"
+              className="mt-8 text-h2 max-w-[26ch] text-ivory"
             >
               {confidentiality.headline}
             </h2>
@@ -27,22 +27,56 @@ export function Confidentiality() {
               className="mt-10 h-px w-24 border-0 bg-gold"
             />
 
-            <div className="mt-10 max-w-[62ch] space-y-6">
-              {confidentiality.body.map((paragraph, index) => (
-                <p
-                  key={paragraph}
-                  data-reveal=""
-                  style={delay(200 + index * 70)}
-                  className={
-                    index === 0
-                      ? "text-lead text-ivory"
-                      : "leading-relaxed text-sage"
-                  }
+            <p
+              data-reveal=""
+              style={delay(200)}
+              className="mt-10 max-w-[58ch] text-lead text-ivory"
+            >
+              {confidentiality.intro}
+            </p>
+
+            <ul
+              data-reveal=""
+              style={delay(260)}
+              className="mt-8 flex flex-wrap gap-3"
+            >
+              {confidentiality.regulations.map((regulation) => (
+                <li
+                  key={regulation}
+                  className="inline-flex items-center gap-2 rounded-md border border-rule-dark px-3 py-1.5 text-[0.7rem] font-medium tracking-wide text-sage"
                 >
-                  {paragraph}
-                </p>
+                  <span aria-hidden="true" className="size-1 shrink-0 bg-gold" />
+                  {regulation}
+                </li>
               ))}
-            </div>
+            </ul>
+
+            <ul className="mt-16 grid gap-x-10 gap-y-10 lg:mt-20 sm:grid-cols-3">
+              {confidentiality.pillars.map((pillar, index) => (
+                <li
+                  key={pillar.title}
+                  data-reveal=""
+                  style={delay(320 + index * 80)}
+                  className="border-t border-rule-dark pt-7"
+                >
+                  <span aria-hidden="true" className="block size-1.5 bg-gold" />
+                  <h3 className="mt-5 font-serif text-[1.15rem] leading-snug text-ivory">
+                    {pillar.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-ivory/75">
+                    {pillar.body}
+                  </p>
+                </li>
+              ))}
+            </ul>
+
+            <p
+              data-reveal=""
+              style={delay(600)}
+              className="mt-14 max-w-[62ch] border-l-2 border-gold pl-5 text-sm leading-relaxed text-sage"
+            >
+              {confidentiality.closingNote}
+            </p>
           </div>
 
           <div
